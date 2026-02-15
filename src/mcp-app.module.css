@@ -1,0 +1,176 @@
+/* ── Layout ────────────────────────────────────────────────────────────── */
+
+.container {
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  padding: var(--spacing-lg);
+}
+
+/* ── Header / Branding ────────────────────────────────────────────────── */
+
+.header {
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+}
+
+.logo {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--border-radius-md);
+  margin-bottom: var(--spacing-sm);
+}
+
+.brandName {
+  font-size: var(--font-heading-xl-size);
+  line-height: var(--font-heading-xl-line-height);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-accent);
+}
+
+.tagline {
+  font-size: var(--font-text-sm-size);
+  color: var(--color-text-secondary);
+  margin-top: var(--spacing-xs);
+}
+
+/* ── Form ──────────────────────────────────────────────────────────────── */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.label {
+  font-size: var(--font-text-sm-size);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+}
+
+.required {
+  color: var(--color-text-error);
+  margin-left: 2px;
+}
+
+.input,
+.textarea,
+.select {
+  display: block;
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-family: inherit;
+  font-size: inherit;
+  color: var(--color-text-primary);
+  background-color: var(--color-background-surface);
+  border: var(--border-width-regular) solid var(--color-border);
+  border-radius: var(--border-radius-md);
+  outline: none;
+  transition: border-color 0.15s ease;
+
+  &::placeholder {
+    color: var(--color-text-secondary);
+  }
+
+  &:focus {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-accent) 25%, transparent);
+  }
+}
+
+.textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-md);
+}
+
+/* ── Submit Button ─────────────────────────────────────────────────────── */
+
+.submitButton {
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  margin-top: var(--spacing-sm);
+  border: none;
+  border-radius: var(--border-radius-md);
+  color: var(--color-text-on-accent);
+  font-size: inherit;
+  font-weight: var(--font-weight-bold);
+  background-color: var(--color-accent);
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+
+  &:hover:not(:disabled) {
+    background-color: var(--color-accent-hover);
+  }
+
+  &:focus-visible {
+    outline: calc(var(--border-width-regular) * 2) solid var(--color-ring-primary);
+    outline-offset: var(--border-width-regular);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+/* ── Status Messages ───────────────────────────────────────────────────── */
+
+.status {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--border-radius-md);
+  font-size: var(--font-text-sm-size);
+  text-align: center;
+}
+
+.statusSuccess {
+  composes: status;
+  color: var(--color-text-success);
+  background-color: var(--color-background-success);
+}
+
+.statusError {
+  composes: status;
+  color: var(--color-text-error);
+  background-color: var(--color-background-error);
+}
+
+/* ── Ticket Confirmation ───────────────────────────────────────────────── */
+
+.ticket {
+  padding: var(--spacing-md);
+  background-color: var(--color-background-surface);
+  border: var(--border-width-regular) solid var(--color-border);
+  border-radius: var(--border-radius-md);
+}
+
+.ticketTitle {
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--spacing-sm);
+}
+
+.ticketDetail {
+  font-size: var(--font-text-sm-size);
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+/* ── Footer ────────────────────────────────────────────────────────────── */
+
+.footer {
+  margin-top: var(--spacing-xl);
+  text-align: center;
+  font-size: var(--font-text-sm-size);
+  color: var(--color-text-secondary);
+}
