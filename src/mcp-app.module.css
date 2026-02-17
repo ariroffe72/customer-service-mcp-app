@@ -166,6 +166,69 @@
   line-height: 1.6;
 }
 
+/* ── Server Tools Panel ────────────────────────────────────────────────── */
+
+.toolsPanel {
+  margin-top: var(--spacing-xl);
+  border: var(--border-width-regular) solid var(--color-border);
+  border-radius: var(--border-radius-md);
+  overflow: hidden;
+}
+
+.toolsToggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: none;
+  background-color: var(--color-background-surface);
+  color: var(--color-text-primary);
+  font-family: inherit;
+  font-size: var(--font-text-sm-size);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+
+  &:hover {
+    background-color: var(--color-border);
+  }
+}
+
+.toolsChevron {
+  font-size: 0.65em;
+  transition: transform 0.15s ease;
+
+  &[data-expanded="true"] {
+    transform: rotate(90deg);
+  }
+}
+
+.toolsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.toolItem {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-top: var(--border-width-regular) solid var(--color-border);
+}
+
+.toolName {
+  font-size: var(--font-text-sm-size);
+  font-weight: var(--font-weight-bold);
+  font-family: var(--font-mono);
+  color: var(--color-accent);
+}
+
+.toolDesc {
+  font-size: var(--font-text-sm-size);
+  color: var(--color-text-secondary);
+  margin-top: var(--spacing-xs);
+  line-height: 1.4;
+}
+
 /* ── Footer ────────────────────────────────────────────────────────────── */
 
 .footer {

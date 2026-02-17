@@ -56,15 +56,15 @@ async function sendSupportEmail(
   // If SMTP credentials aren't configured, log instead of sending
   if (!config.smtp.auth.user || !config.smtp.auth.pass) {
     const body = buildEmailBody(fields, config);
-    console.log("=== EMAIL PREVIEW (SMTP not configured) ===");
-    console.log(`To: ${config.supportEmail}`);
-    console.log(
+    console.error("=== EMAIL PREVIEW (SMTP not configured) ===");
+    console.error(`To: ${config.supportEmail}`);
+    console.error(
       `Subject: ${config.emailSubjectTemplate
         .replace("{{name}}", fields.name)
         .replace("{{issue}}", fields.issue)}`,
     );
-    console.log(body);
-    console.log("============================================");
+    console.error(body);
+    console.error("============================================");
     return {
       success: true,
       message:

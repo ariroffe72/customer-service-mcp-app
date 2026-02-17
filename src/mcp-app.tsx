@@ -6,7 +6,8 @@
  */
 import type { App, McpUiHostContext } from "@modelcontextprotocol/ext-apps";
 import { useApp } from "@modelcontextprotocol/ext-apps/react";
-import type { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
+import { ListToolsResultSchema } from "@modelcontextprotocol/sdk/types.js";
+import type { CallToolResult, Tool } from "@modelcontextprotocol/sdk/types.js";
 import {
   StrictMode,
   useCallback,
@@ -128,6 +129,67 @@ function CustomerServiceApp() {
       toolResult={toolResult}
       hostContext={hostContext}
     />
+  );
+}
+
+// ── Server Tools panel ────────────────────────────────────────────────────
+
+function ServerToolsPanel({ app }: { app: App }) {
+  const [tools, setTools] = useState<Tool[]>([]);
+  const [expanded, setExpanded] = useState(false);
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    app
+      .request(
+        { method: "tools/list" as const, params: {} },
+        ListToolsResultSchema,
+      )
+      .then((res) => {
+        if (!cancelled) {
+          setTools(res.tools);
+          setLoaded(true);
+        }
+      })
+      .catch(() => {
+        // Host doesn't support tools/list proxy — silently skip
+        if (!cancelled) setLoaded(true);
+      });
+
+    return () => { cancelled = true; };
+  }, [app]);
+
+  if (!loaded || tools.length === 0) return null;
+
+  return (
+    <section className={styles.toolsPanel}>
+      <button
+        type="button"
+        className={styles.toolsToggle}
+        onClick={() => setExpanded((v) => !v)}
+        aria-expanded={expanded}
+      >
+        <span>Server Tools ({tools.length})</span>
+        <span className={styles.toolsChevron} data-expanded={expanded}>
+          {"\u25B6"}
+        </span>
+      </button>
+
+      {expanded && (
+        <ul className={styles.toolsList}>
+          {tools.map((t) => (
+            <li key={t.name} className={styles.toolItem}>
+              <p className={styles.toolName}>{t.name}</p>
+              {t.description && (
+                <p className={styles.toolDesc}>{t.description}</p>
+              )}
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
   );
 }
 
@@ -386,6 +448,9 @@ function SupportForm({ app, toolResult, hostContext }: SupportFormProps) {
           </button>
         </form>
       )}
+
+      {/* ── Available server tools ─────────────────────────────────── */}
+      <ServerToolsPanel app={app} />
 
       <footer className={styles.footer}>
         Powered by {brand.name}
